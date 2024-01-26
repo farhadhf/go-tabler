@@ -1,0 +1,148 @@
+package tabler_test
+
+import (
+	_ "embed"
+	"github.com/a-h/templ/generator/htmldiff"
+	tabler "github.com/farhadhf/tabler-templ/components"
+	"github.com/farhadhf/tabler-templ/internal/utility"
+	"testing"
+)
+
+//go:embed test-data/alert.html
+var alert string
+
+func TestAlert(t *testing.T) {
+	component := tabler.Alert("title", "description", "", false, false)
+	got, err := utility.Render(component)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	diff, err := htmldiff.DiffStrings(utility.MinifyHtml(alert), utility.MinifyHtml(got))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if diff != "" {
+		t.Error(diff)
+	}
+}
+
+//go:embed test-data/alert-color.html
+var alertColor string
+
+func TestAlertColor(t *testing.T) {
+	component := tabler.Alert("title", "description", "danger", false, false)
+	got, err := utility.Render(component)
+	if err != nil {
+		t.Fatal(err)
+	}
+	diff, err := htmldiff.DiffStrings(utility.MinifyHtml(alertColor), utility.MinifyHtml(got))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if diff != "" {
+		t.Error(diff)
+	}
+}
+
+//go:embed test-data/alert-important.html
+var alertImportant string
+
+func TestAlertImportant(t *testing.T) {
+	component := tabler.Alert("title", "description", "", false, true)
+	got, err := utility.Render(component)
+	if err != nil {
+		t.Fatal(err)
+	}
+	diff, err := htmldiff.DiffStrings(utility.MinifyHtml(alertImportant), utility.MinifyHtml(got))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if diff != "" {
+		t.Error(diff)
+	}
+}
+
+//go:embed test-data/alert-important-dismissible.html
+var alertImportantDismissible string
+
+func TestAlertImportantDismissible(t *testing.T) {
+	component := tabler.Alert("title", "description", "", true, true)
+	got, err := utility.Render(component)
+	if err != nil {
+		t.Fatal(err)
+	}
+	diff, err := htmldiff.DiffStrings(utility.MinifyHtml(alertImportantDismissible), utility.MinifyHtml(got))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if diff != "" {
+		t.Error(diff)
+	}
+}
+
+//go:embed test-data/alert-icon.html
+var alertIcon string
+
+func TestAlertIcon(t *testing.T) {
+	component := tabler.AlertWithIcon("title", "description", "2fa", "", false, false)
+	got, err := utility.Render(component)
+	t.Log(got)
+	if err != nil {
+		t.Fatal(err)
+	}
+	diff, err := htmldiff.DiffStrings(utility.MinifyHtml(alertIcon), utility.MinifyHtml(got))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if diff != "" {
+		t.Error(diff)
+	}
+}
+
+//go:embed test-data/alert-icon-dismissible.html
+var alertIconDismissible string
+
+func TestAlertIconDismissible(t *testing.T) {
+	component := tabler.AlertWithIcon("title", "description", "2fa", "", true, false)
+	got, err := utility.Render(component)
+	if err != nil {
+		t.Fatal(err)
+	}
+	diff, err := htmldiff.DiffStrings(utility.MinifyHtml(alertIconDismissible), utility.MinifyHtml(got))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if diff != "" {
+		t.Error(diff)
+	}
+}
+
+//
+////go:embed test-data/alert-avatar.html
+//var alertAvatar string
+//
+//func TestAlertAvatar(t *testing.T) {
+//	component := tabler.AlertWithAvatar("title", "description", "", false, false)
+//	diff, err := htmldiff.Diff(component, alertAvatar)
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//	if diff != "" {
+//		t.Error(diff)
+//	}
+//}
+//
+////go:embed test-data/alert-avatar-dismissible.html
+//var alertAvatarDismissible string
+//
+//func TestAlertAvatarDismissible(t *testing.T) {
+//	component := tabler.Alert("title", "description", "", true, false)
+//	diff, err := htmldiff.Diff(component, alertAvatarDismissible)
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//	if diff != "" {
+//		t.Error(diff)
+//	}
+//}

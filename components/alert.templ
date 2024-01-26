@@ -1,0 +1,62 @@
+package tabler
+
+templ alertLayout(color string, dismissible bool, important bool, body templ.Component) {
+    <div role="alert"
+        class={
+            "alert",
+            templ.KV("alert-success", color == ""),
+            templ.KV("alert-"+color, color != ""),
+            templ.KV("alert-important", important),
+            templ.KV("alert-dismissible", dismissible),
+        }
+    >
+        <div class="d-flex">
+            @body
+        </div>
+        if dismissible {
+            <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+        }
+    </div>
+}
+
+templ alertBody(title, description string) {
+    <div>
+        if title != "" {
+            <h4 class="alert-title">{title}</h4>
+        }
+        if description != "" {
+            <div class="text-secondary">{description}</div>
+        }
+    </div>
+}
+
+templ alertBodyWithIcon(title, description, icon string) {
+    <div>
+        @Icon(icon)
+    </div>
+    <div>
+        if title != "" {
+            <h4 class="alert-title">{title}</h4>
+        }
+        if description != "" {
+            <div class="text-secondary">{description}</div>
+        }
+    </div>
+}
+
+templ Alert(title string, description string, color string, dismissible, important bool) {
+    @alertLayout(color, dismissible, important, alertBody(title, description))
+}
+
+templ AlertWithIcon(title string, description string, icon string, color string, dismissible, important bool) {
+    @alertLayout(color, dismissible, important, alertBodyWithIcon(title, description, icon))
+}
+
+templ AlertWithAvatar() {
+
+}
+
+templ AlertWithButtons() {
+
+}
+

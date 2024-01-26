@@ -1,0 +1,37 @@
+package tabler
+
+type LinkTag struct {
+    Href string
+    Attributes templ.Attributes
+}
+
+type ScriptTag struct {
+    Src string
+    Attributes templ.Attributes
+}
+
+type MetaTag struct {
+    Name string
+    Content string
+}
+
+templ Head(title string, links []LinkTag, scripts []ScriptTag, metaTags []MetaTag, includeTablerCDN bool) {
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{title}</title>
+        if includeTablerCDN {
+            <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css"/>
+        }
+        for _, meta := range metaTags {
+            <meta name={ meta.Name } content={ meta.Content } />
+        }
+        for _, link := range links {
+            <link { link.Attributes... } href={ link.Href } />
+        }
+        for _, script := range scripts {
+            <script src={ script.Src } { script.Attributes... }></script>
+        }
+    </head>
+}

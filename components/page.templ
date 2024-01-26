@@ -1,0 +1,9 @@
+package tabler
+
+templ Page(attrs templ.Attributes, head templ.Component, body templ.Component) {
+    <!DOCTYPE html>
+    <html { attrs... }>
+        @head
+        @body
+    </html>
+}
