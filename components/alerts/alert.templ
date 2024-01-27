@@ -1,4 +1,16 @@
-package tabler
+package alerts
+
+import (
+	tabler "github.com/farhadhf/tabler-templ/components"
+)
+
+type AlertParams struct {
+    Title string
+    Description string
+    Color string
+    Dismissible bool
+    Important bool
+}
 
 templ alertLayout(color string, dismissible bool, important bool, body templ.Component) {
     <div role="alert"
@@ -32,7 +44,7 @@ templ alertBody(title, description string) {
 
 templ alertBodyWithIcon(title, description, icon string) {
     <div>
-        @Icon(icon)
+        @tabler.Icon(icon)
     </div>
     <div>
         if title != "" {
@@ -44,12 +56,12 @@ templ alertBodyWithIcon(title, description, icon string) {
     </div>
 }
 
-templ Alert(title string, description string, color string, dismissible, important bool) {
-    @alertLayout(color, dismissible, important, alertBody(title, description))
+templ Alert(params AlertParams) {
+    @alertLayout(params.Color, params.Dismissible, params.Important, alertBody(params.Title, params.Description))
 }
 
-templ AlertWithIcon(title string, description string, icon string, color string, dismissible, important bool) {
-    @alertLayout(color, dismissible, important, alertBodyWithIcon(title, description, icon))
+templ AlertWithIcon(params AlertParams, icon string) {
+    @alertLayout(params.Color, params.Dismissible, params.Important, alertBodyWithIcon(params.Title, params.Description, icon))
 }
 
 templ AlertWithAvatar() {

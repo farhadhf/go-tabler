@@ -1,18 +1,26 @@
-package tabler_test
+package alerts_test
 
 import (
 	_ "embed"
-	"github.com/a-h/templ/generator/htmldiff"
-	tabler "github.com/farhadhf/tabler-templ/components"
-	"github.com/farhadhf/tabler-templ/internal/utility"
 	"testing"
+
+	"github.com/a-h/templ/generator/htmldiff"
+	alerts "github.com/farhadhf/tabler-templ/components/alerts"
+	"github.com/farhadhf/tabler-templ/internal/utility"
 )
 
 //go:embed test-data/alert.html
 var alert string
 
 func TestAlert(t *testing.T) {
-	component := tabler.Alert("title", "description", "", false, false)
+	alertParams := alerts.AlertParams{
+		Title:       "title",
+		Description: "description",
+		Color:       "",
+		Dismissible: false,
+		Important:   false,
+	}
+	component := alerts.Alert(alertParams)
 	got, err := utility.Render(component)
 	if err != nil {
 		t.Fatal(err)
@@ -31,7 +39,14 @@ func TestAlert(t *testing.T) {
 var alertColor string
 
 func TestAlertColor(t *testing.T) {
-	component := tabler.Alert("title", "description", "danger", false, false)
+	alertParams := alerts.AlertParams{
+		Title:       "title",
+		Description: "description",
+		Color:       "danger",
+		Dismissible: false,
+		Important:   false,
+	}
+	component := alerts.Alert(alertParams)
 	got, err := utility.Render(component)
 	if err != nil {
 		t.Fatal(err)
@@ -49,7 +64,14 @@ func TestAlertColor(t *testing.T) {
 var alertImportant string
 
 func TestAlertImportant(t *testing.T) {
-	component := tabler.Alert("title", "description", "", false, true)
+	alertParams := alerts.AlertParams{
+		Title:       "title",
+		Description: "description",
+		Color:       "",
+		Dismissible: false,
+		Important:   true,
+	}
+	component := alerts.Alert(alertParams)
 	got, err := utility.Render(component)
 	if err != nil {
 		t.Fatal(err)
@@ -67,7 +89,14 @@ func TestAlertImportant(t *testing.T) {
 var alertImportantDismissible string
 
 func TestAlertImportantDismissible(t *testing.T) {
-	component := tabler.Alert("title", "description", "", true, true)
+	alertParams := alerts.AlertParams{
+		Title:       "title",
+		Description: "description",
+		Color:       "",
+		Dismissible: true,
+		Important:   true,
+	}
+	component := alerts.Alert(alertParams)
 	got, err := utility.Render(component)
 	if err != nil {
 		t.Fatal(err)
@@ -85,13 +114,22 @@ func TestAlertImportantDismissible(t *testing.T) {
 var alertIcon string
 
 func TestAlertIcon(t *testing.T) {
-	component := tabler.AlertWithIcon("title", "description", "2fa", "", false, false)
+	alertParams := alerts.AlertParams{
+		Title:       "title",
+		Description: "description",
+		Color:       "",
+		Dismissible: false,
+		Important:   false,
+	}
+	component := alerts.AlertWithIcon(alertParams, "2fa")
 	got, err := utility.Render(component)
 	t.Log(got)
 	if err != nil {
 		t.Fatal(err)
 	}
-	diff, err := htmldiff.DiffStrings(utility.MinifyHtml(alertIcon), utility.MinifyHtml(got))
+	t.Log(got)
+	t.Log(alertIcon)
+	diff, err := htmldiff.DiffStrings(alertIcon, got)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -104,7 +142,14 @@ func TestAlertIcon(t *testing.T) {
 var alertIconDismissible string
 
 func TestAlertIconDismissible(t *testing.T) {
-	component := tabler.AlertWithIcon("title", "description", "2fa", "", true, false)
+	alertParams := alerts.AlertParams{
+		Title:       "title",
+		Description: "description",
+		Color:       "",
+		Dismissible: true,
+		Important:   false,
+	}
+	component := alerts.AlertWithIcon(alertParams, "2fa")
 	got, err := utility.Render(component)
 	if err != nil {
 		t.Fatal(err)
