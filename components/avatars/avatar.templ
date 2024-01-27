@@ -1,0 +1,67 @@
+package avatars
+
+import (
+    tabler "github.com/farhadhf/tabler-templ/components"
+)
+
+type ShapeOption string
+type SizeOption string
+
+var (
+    SizeXS SizeOption = "xs"
+    SizeSM SizeOption = "sm"
+    SizeMD SizeOption = "md"
+    SizeLG SizeOption = "lg"
+    SizeXL SizeOption = "xl"
+)
+
+var (
+    Square ShapeOption = "rounded-0"
+    Rounded ShapeOption = "rounded"
+    Rounded2 ShapeOption = "rounded-2"
+    Rounded3 ShapeOption = "rounded-3"
+    Circle ShapeOption = "rounded-circle"
+)
+
+
+type AvatarParams struct {
+    BackgroundColor string
+    Size SizeOption
+    Shape ShapeOption
+}
+
+templ avatarLayout(params AvatarParams, content templ.Component) {
+    <span class={
+        "avatar",
+        templ.KV("bg-"+params.BackgroundColor, params.BackgroundColor != ""),
+        templ.KV(string("avatar-"+params.Size), params.Size != ""),
+        templ.KV(string(params.Shape), params.Shape != ""),
+    }>
+        @content
+    </span>
+}
+
+templ initials(str string) {
+    { str }
+}
+
+templ AvatarWithInitials(inits string, params AvatarParams) {
+    @avatarLayout(params, initials(inits))
+}
+
+
+templ AvatarWithIcon(icon string, params AvatarParams) {
+    @avatarLayout(params, tabler.Icon(icon))
+}
+
+
+templ AvatarList(avatars []templ.Component, stacked bool) {
+    <div class={
+        "avatar-list",
+        templ.KV("avatar-list-stacked", stacked),
+    }>
+    for _, avatar := range avatars {
+        @avatar
+    }
+    </div>
+}

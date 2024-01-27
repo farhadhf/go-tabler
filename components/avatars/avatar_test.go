@@ -1,19 +1,20 @@
-package tabler_test
+package avatars_test
 
 import (
 	_ "embed"
+	"testing"
+
 	"github.com/a-h/templ"
 	"github.com/a-h/templ/generator/htmldiff"
-	tabler "github.com/farhadhf/tabler-templ/components"
+	avatars "github.com/farhadhf/tabler-templ/components/avatars"
 	"github.com/farhadhf/tabler-templ/internal/utility"
-	"testing"
 )
 
 //go:embed test-data/avatar-initials.html
 var avatar string
 
 func TestInitialsAvatar(t *testing.T) {
-	component := tabler.AvatarWithInitials("FH", "", "", "")
+	component := avatars.AvatarWithInitials("FH", avatars.AvatarParams{})
 	got, err := utility.Render(component)
 	if err != nil {
 		t.Fatal(err)
@@ -32,7 +33,12 @@ func TestInitialsAvatar(t *testing.T) {
 var avatarLayout string
 
 func TestAvatarLayout(t *testing.T) {
-	component := tabler.AvatarWithInitials("FH", "red-lt", "sm", "rounded-circle")
+	params := avatars.AvatarParams{
+		BackgroundColor: "red-lt",
+		Size:            avatars.SizeSM,
+		Shape:           avatars.Circle,
+	}
+	component := avatars.AvatarWithInitials("FH", params)
 	got, err := utility.Render(component)
 	if err != nil {
 		t.Fatal(err)
@@ -51,7 +57,7 @@ func TestAvatarLayout(t *testing.T) {
 var avatarWithIcon string
 
 func TestAvatarWithIcon(t *testing.T) {
-	component := tabler.AvatarWithIcon("2fa", "", "", "")
+	component := avatars.AvatarWithIcon("2fa", avatars.AvatarParams{})
 	got, err := utility.Render(component)
 	if err != nil {
 		t.Fatal(err)
@@ -73,11 +79,25 @@ var avatarList string
 var avatarStackedList string
 
 func TestAvatarList(t *testing.T) {
-	avatars := []templ.Component{
-		tabler.AvatarWithInitials("FH", "red-lt", "sm", "rounded-circle"),
-		tabler.AvatarWithIcon("2fa", "red-lt", "sm", "rounded-circle"),
+	avatarComponents := []templ.Component{
+		avatars.AvatarWithInitials(
+			"FH",
+			avatars.AvatarParams{
+				BackgroundColor: "red-lt",
+				Size:            avatars.SizeSM,
+				Shape:           avatars.Circle,
+			},
+		),
+		avatars.AvatarWithIcon(
+			"2fa",
+			avatars.AvatarParams{
+				BackgroundColor: "red-lt",
+				Size:            avatars.SizeSM,
+				Shape:           avatars.Circle,
+			},
+		),
 	}
-	component := tabler.AvatarList(avatars, false)
+	component := avatars.AvatarList(avatarComponents, false)
 	got, err := utility.Render(component)
 	if err != nil {
 		t.Fatal(err)
@@ -92,7 +112,7 @@ func TestAvatarList(t *testing.T) {
 		t.Error(diff)
 	}
 
-	component = tabler.AvatarList(avatars, true)
+	component = avatars.AvatarList(avatarComponents, true)
 	got, err = utility.Render(component)
 	if err != nil {
 		t.Fatal(err)
