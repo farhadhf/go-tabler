@@ -6,8 +6,8 @@ import (
 
 	"github.com/a-h/templ"
 	"github.com/a-h/templ/generator/htmldiff"
-	avatars "github.com/farhadhf/tabler-templ/components/avatars"
-	"github.com/farhadhf/tabler-templ/internal/utility"
+	avatars "github.com/farhadhf/go-tabler/components/avatars"
+	"github.com/farhadhf/go-tabler/internal/utility"
 )
 
 //go:embed test-data/avatar-initials.html

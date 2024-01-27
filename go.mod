@@ -1,4 +1,4 @@
-module github.com/farhadhf/tabler-templ
+module github.com/farhadhf/go-tabler
 
 go 1.21.6
 

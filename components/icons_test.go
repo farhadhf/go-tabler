@@ -2,10 +2,11 @@ package tabler_test
 
 import (
 	_ "embed"
-	"github.com/a-h/templ/generator/htmldiff"
-	tabler "github.com/farhadhf/tabler-templ/components"
-	"github.com/farhadhf/tabler-templ/internal/utility"
 	"testing"
+
+	"github.com/a-h/templ/generator/htmldiff"
+	tabler "github.com/farhadhf/go-tabler/components"
+	"github.com/farhadhf/go-tabler/internal/utility"
 )
 
 //go:embed test-data/icon-2fa.svg

@@ -2,14 +2,13 @@ package main
 
 import (
 	"context"
-	"github.com/a-h/templ"
-	tabler "github.com/farhadhf/tabler-templ/components"
-	"github.com/farhadhf/tabler-templ/components/icons"
 	"os"
+
+	"github.com/a-h/templ"
+	tabler "github.com/farhadhf/go-tabler/components"
 )
 
 func main() {
-	icons.Icon2Fa()
 	component := tabler.Page(
 		templ.Attributes{
 			"dir":  "ltr",
