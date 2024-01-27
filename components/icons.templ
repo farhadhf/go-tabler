@@ -4952,7 +4952,7 @@ func init() {
 
 templ Icon(name string) {
 	if icons[name] != "" {
-		{ icons[name] }
+		@templ.Raw(icons[name])
 	} else {
 		INVALID ICON NAME
 	}
