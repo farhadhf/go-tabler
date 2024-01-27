@@ -3,7 +3,10 @@ package utility
 import (
 	"bytes"
 	"context"
+	"fmt"
+
 	"github.com/a-h/templ"
+	"github.com/a-h/templ/generator/htmldiff"
 	"github.com/tdewolff/minify"
 	"github.com/tdewolff/minify/html"
 	"github.com/tdewolff/minify/svg"
@@ -32,4 +35,22 @@ func MinifySvg(str string) string {
 	m.AddFunc("image/svg+xml", svg.Minify)
 	str, _ = m.String("image/svg+xml", str)
 	return str
+}
+
+func CompareComponentAndHtml(component templ.Component, html string) error {
+	got, err := Render(component)
+	if err != nil {
+		return err
+	}
+
+	html = MinifyHtml(html)
+	got = MinifyHtml(got)
+	diff, err := htmldiff.DiffStrings(html, got)
+	if err != nil {
+		return err
+	}
+	if diff != "" {
+		return fmt.Errorf("\nexpected\t%s\ngot\t\t\t%s", html, got)
+	}
+	return nil
 }
