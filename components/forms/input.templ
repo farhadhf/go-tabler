@@ -1,0 +1,45 @@
+package tabler
+
+type InputParams struct {
+    Label string
+    InputType string
+    Name string
+    Placeholder string
+    Value string
+    Rounded bool
+    
+    WrapperAttributes templ.Attributes
+    WrapperClasses string
+
+    LabelAttributes templ.Attributes
+    LabelClasses string
+    
+    InputAttributes templ.Attributes
+    InputClasses string
+}
+
+templ Input(params InputParams) {
+    <div class={"mb-3", params.WrapperClasses} { params.WrapperAttributes... }>
+        if params.Label != "" {
+            <label class={"form-label", params.LabelClasses} { params.LabelAttributes... }>{ params.Label }</label>
+        }
+        <input
+            if params.InputType != "" {
+                type={ params.InputType }
+            }
+            if params.Name != "" {
+                name={ params.Name }
+            }
+            if params.Placeholder != "" {
+                placeholder={ params.Placeholder }
+            }
+            class={
+                "form-control",
+                templ.KV("form-control-rounded", params.Rounded),
+                params.InputClasses,
+            }
+            { params.InputAttributes... }
+        />
+    </div>
+}
+
