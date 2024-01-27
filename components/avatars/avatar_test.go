@@ -6,6 +6,7 @@ import (
 
 	"github.com/a-h/templ"
 	"github.com/a-h/templ/generator/htmldiff"
+	tabler "github.com/farhadhf/go-tabler/components"
 	avatars "github.com/farhadhf/go-tabler/components/avatars"
 	"github.com/farhadhf/go-tabler/internal/utility"
 )
@@ -35,7 +36,7 @@ var avatarLayout string
 func TestAvatarLayout(t *testing.T) {
 	params := avatars.AvatarParams{
 		BackgroundColor: "red-lt",
-		Size:            avatars.SizeSM,
+		Size:            tabler.SizeSM,
 		Shape:           avatars.Circle,
 	}
 	component := avatars.AvatarWithInitials("FH", params)
@@ -84,7 +85,7 @@ func TestAvatarList(t *testing.T) {
 			"FH",
 			avatars.AvatarParams{
 				BackgroundColor: "red-lt",
-				Size:            avatars.SizeSM,
+				Size:            tabler.SizeSM,
 				Shape:           avatars.Circle,
 			},
 		),
@@ -92,7 +93,7 @@ func TestAvatarList(t *testing.T) {
 			"2fa",
 			avatars.AvatarParams{
 				BackgroundColor: "red-lt",
-				Size:            avatars.SizeSM,
+				Size:            tabler.SizeSM,
 				Shape:           avatars.Circle,
 			},
 		),

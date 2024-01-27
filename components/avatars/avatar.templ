@@ -5,15 +5,6 @@ import (
 )
 
 type ShapeOption string
-type SizeOption string
-
-var (
-    SizeXS SizeOption = "xs"
-    SizeSM SizeOption = "sm"
-    SizeMD SizeOption = "md"
-    SizeLG SizeOption = "lg"
-    SizeXL SizeOption = "xl"
-)
 
 var (
     Square ShapeOption = "rounded-0"
@@ -26,7 +17,7 @@ var (
 
 type AvatarParams struct {
     BackgroundColor string
-    Size SizeOption
+    Size tabler.SizeOption
     Shape ShapeOption
 }
 
