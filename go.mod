@@ -3,7 +3,7 @@ module github.com/farhadhf/tabler-templ
 go 1.21.6
 
 require (
-	github.com/a-h/templ v0.2.513
+	github.com/a-h/templ v0.2.543
 	github.com/tdewolff/minify v2.3.6+incompatible
 	golang.org/x/text v0.13.0
 )
