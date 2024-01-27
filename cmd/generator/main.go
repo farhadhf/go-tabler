@@ -2,14 +2,15 @@ package main
 
 import (
 	"fmt"
-	"github.com/tdewolff/minify"
-	"github.com/tdewolff/minify/svg"
-	"golang.org/x/text/cases"
-	"golang.org/x/text/language"
 	"log"
 	"os"
 	"regexp"
 	"strings"
+
+	"github.com/tdewolff/minify"
+	"github.com/tdewolff/minify/svg"
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 var m = minify.New()
@@ -62,7 +63,7 @@ func main() {
 	}
 	defer f.Close()
 	f.Write([]byte("package tabler\n\n"))
-	f.Write([]byte(fmt.Sprintf("var icons map[string]string\n")))
+	f.Write([]byte("var icons map[string]string\n"))
 	f.Write([]byte("func init() {\n"))
 	f.Write([]byte("\ticons = map[string]string{\n"))
 	re := regexp.MustCompile(`>\s*<`)
