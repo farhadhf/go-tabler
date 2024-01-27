@@ -4,7 +4,6 @@ import (
 	_ "embed"
 	"testing"
 
-	"github.com/a-h/templ/generator/htmldiff"
 	alerts "github.com/farhadhf/go-tabler/components/alerts"
 	"github.com/farhadhf/go-tabler/internal/utility"
 )
@@ -21,17 +20,9 @@ func TestAlert(t *testing.T) {
 		Important:   false,
 	}
 	component := alerts.Alert(alertParams)
-	got, err := utility.Render(component)
+	err := utility.CompareComponentAndHtml(component, alert)
 	if err != nil {
-		t.Fatal(err)
-	}
-
-	diff, err := htmldiff.DiffStrings(utility.MinifyHtml(alert), utility.MinifyHtml(got))
-	if err != nil {
-		t.Fatal(err)
-	}
-	if diff != "" {
-		t.Error(diff)
+		t.Error(err)
 	}
 }
 
@@ -47,16 +38,9 @@ func TestAlertColor(t *testing.T) {
 		Important:   false,
 	}
 	component := alerts.Alert(alertParams)
-	got, err := utility.Render(component)
+	err := utility.CompareComponentAndHtml(component, alertColor)
 	if err != nil {
-		t.Fatal(err)
-	}
-	diff, err := htmldiff.DiffStrings(utility.MinifyHtml(alertColor), utility.MinifyHtml(got))
-	if err != nil {
-		t.Fatal(err)
-	}
-	if diff != "" {
-		t.Error(diff)
+		t.Error(err)
 	}
 }
 
@@ -72,16 +56,9 @@ func TestAlertImportant(t *testing.T) {
 		Important:   true,
 	}
 	component := alerts.Alert(alertParams)
-	got, err := utility.Render(component)
+	err := utility.CompareComponentAndHtml(component, alertImportant)
 	if err != nil {
-		t.Fatal(err)
-	}
-	diff, err := htmldiff.DiffStrings(utility.MinifyHtml(alertImportant), utility.MinifyHtml(got))
-	if err != nil {
-		t.Fatal(err)
-	}
-	if diff != "" {
-		t.Error(diff)
+		t.Error(err)
 	}
 }
 
@@ -97,16 +74,9 @@ func TestAlertImportantDismissible(t *testing.T) {
 		Important:   true,
 	}
 	component := alerts.Alert(alertParams)
-	got, err := utility.Render(component)
+	err := utility.CompareComponentAndHtml(component, alertImportantDismissible)
 	if err != nil {
-		t.Fatal(err)
-	}
-	diff, err := htmldiff.DiffStrings(utility.MinifyHtml(alertImportantDismissible), utility.MinifyHtml(got))
-	if err != nil {
-		t.Fatal(err)
-	}
-	if diff != "" {
-		t.Error(diff)
+		t.Error(err)
 	}
 }
 
@@ -122,19 +92,9 @@ func TestAlertIcon(t *testing.T) {
 		Important:   false,
 	}
 	component := alerts.AlertWithIcon(alertParams, "2fa")
-	got, err := utility.Render(component)
-	t.Log(got)
+	err := utility.CompareComponentAndHtml(component, alertIcon)
 	if err != nil {
-		t.Fatal(err)
-	}
-	t.Log(got)
-	t.Log(alertIcon)
-	diff, err := htmldiff.DiffStrings(alertIcon, got)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if diff != "" {
-		t.Error(diff)
+		t.Error(err)
 	}
 }
 
@@ -150,16 +110,9 @@ func TestAlertIconDismissible(t *testing.T) {
 		Important:   false,
 	}
 	component := alerts.AlertWithIcon(alertParams, "2fa")
-	got, err := utility.Render(component)
+	err := utility.CompareComponentAndHtml(component, alertIconDismissible)
 	if err != nil {
-		t.Fatal(err)
-	}
-	diff, err := htmldiff.DiffStrings(utility.MinifyHtml(alertIconDismissible), utility.MinifyHtml(got))
-	if err != nil {
-		t.Fatal(err)
-	}
-	if diff != "" {
-		t.Error(diff)
+		t.Error(err)
 	}
 }
 

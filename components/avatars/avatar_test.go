@@ -5,7 +5,6 @@ import (
 	"testing"
 
 	"github.com/a-h/templ"
-	"github.com/a-h/templ/generator/htmldiff"
 	tabler "github.com/farhadhf/go-tabler/components"
 	avatars "github.com/farhadhf/go-tabler/components/avatars"
 	"github.com/farhadhf/go-tabler/internal/utility"
@@ -16,17 +15,10 @@ var avatar string
 
 func TestInitialsAvatar(t *testing.T) {
 	component := avatars.AvatarWithInitials("FH", avatars.AvatarParams{})
-	got, err := utility.Render(component)
-	if err != nil {
-		t.Fatal(err)
-	}
 
-	diff, err := htmldiff.DiffStrings(utility.MinifyHtml(avatar), utility.MinifyHtml(got))
+	err := utility.CompareComponentAndHtml(component, avatar)
 	if err != nil {
-		t.Fatal(err)
-	}
-	if diff != "" {
-		t.Error(diff)
+		t.Error(err)
 	}
 }
 
@@ -40,17 +32,9 @@ func TestAvatarLayout(t *testing.T) {
 		Shape:           avatars.Circle,
 	}
 	component := avatars.AvatarWithInitials("FH", params)
-	got, err := utility.Render(component)
+	err := utility.CompareComponentAndHtml(component, avatarLayout)
 	if err != nil {
-		t.Fatal(err)
-	}
-
-	diff, err := htmldiff.DiffStrings(utility.MinifyHtml(avatarLayout), utility.MinifyHtml(got))
-	if err != nil {
-		t.Fatal(err)
-	}
-	if diff != "" {
-		t.Error(diff)
+		t.Error(err)
 	}
 }
 
@@ -59,17 +43,9 @@ var avatarWithIcon string
 
 func TestAvatarWithIcon(t *testing.T) {
 	component := avatars.AvatarWithIcon("2fa", avatars.AvatarParams{})
-	got, err := utility.Render(component)
+	err := utility.CompareComponentAndHtml(component, avatarWithIcon)
 	if err != nil {
-		t.Fatal(err)
-	}
-
-	diff, err := htmldiff.DiffStrings(utility.MinifyHtml(avatarWithIcon), utility.MinifyHtml(got))
-	if err != nil {
-		t.Fatal(err)
-	}
-	if diff != "" {
-		t.Error(diff)
+		t.Error(err)
 	}
 }
 
@@ -99,31 +75,14 @@ func TestAvatarList(t *testing.T) {
 		),
 	}
 	component := avatars.AvatarList(avatarComponents, false)
-	got, err := utility.Render(component)
+	err := utility.CompareComponentAndHtml(component, avatarList)
 	if err != nil {
-		t.Fatal(err)
-	}
-	t.Log(got)
-	t.Log(avatarList)
-	diff, err := htmldiff.DiffStrings(avatarList, got)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if diff != "" {
-		t.Error(diff)
+		t.Error(err)
 	}
 
 	component = avatars.AvatarList(avatarComponents, true)
-	got, err = utility.Render(component)
+	err = utility.CompareComponentAndHtml(component, avatarStackedList)
 	if err != nil {
-		t.Fatal(err)
-	}
-
-	diff, err = htmldiff.DiffStrings(utility.MinifyHtml(avatarStackedList), utility.MinifyHtml(got))
-	if err != nil {
-		t.Fatal(err)
-	}
-	if diff != "" {
-		t.Error(diff)
+		t.Error(err)
 	}
 }
