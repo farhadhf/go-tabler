@@ -5,8 +5,8 @@ import (
 	"testing"
 
 	"github.com/a-h/templ/generator/htmldiff"
-	alerts "github.com/farhadhf/tabler-templ/components/alerts"
-	"github.com/farhadhf/tabler-templ/internal/utility"
+	alerts "github.com/farhadhf/go-tabler/components/alerts"
+	"github.com/farhadhf/go-tabler/internal/utility"
 )
 
 //go:embed test-data/alert.html

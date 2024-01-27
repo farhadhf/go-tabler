@@ -11,7 +11,7 @@ import "io"
 import "bytes"
 
 import (
-	tabler "github.com/farhadhf/tabler-templ/components"
+	tabler "github.com/farhadhf/go-tabler/components"
 )
 
 type ShapeOption string
