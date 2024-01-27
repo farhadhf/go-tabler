@@ -1,45 +1,162 @@
-package tabler
+package forms
 
-type InputParams struct {
-    Label string
+import (
+    tabler "github.com/farhadhf/go-tabler/components"
+)
+
+type InputElementOpts struct {
     InputType string
     Name string
     Placeholder string
     Value string
     Rounded bool
-    
+    Flush bool
+    Size tabler.SizeOption
+    Attributes templ.Attributes
+    Classes string
+}
+
+type LabelElementOpts struct {
+    Label string
+    For string
+    Attributes templ.Attributes
+    Classes string
+}
+
+type FormInputOpts struct {    
     WrapperAttributes templ.Attributes
     WrapperClasses string
 
-    LabelAttributes templ.Attributes
-    LabelClasses string
-    
-    InputAttributes templ.Attributes
-    InputClasses string
+    InputOptions InputElementOpts
+    LabelOptions LabelElementOpts
 }
 
-templ Input(params InputParams) {
-    <div class={"mb-3", params.WrapperClasses} { params.WrapperAttributes... }>
-        if params.Label != "" {
-            <label class={"form-label", params.LabelClasses} { params.LabelAttributes... }>{ params.Label }</label>
+type InputIconAddonOpts struct {
+    StartAddonIcon string
+    EndAddonIcon string
+}
+
+type InputGroupOpts struct {
+    StartText string
+    EndText string
+}
+
+templ InputElement(opts InputElementOpts) {
+    <input
+        if opts.InputType != "" {
+            type={ opts.InputType }
+        } else {
+            type="text"
         }
-        <input
-            if params.InputType != "" {
-                type={ params.InputType }
-            }
-            if params.Name != "" {
-                name={ params.Name }
-            }
-            if params.Placeholder != "" {
-                placeholder={ params.Placeholder }
-            }
-            class={
-                "form-control",
-                templ.KV("form-control-rounded", params.Rounded),
-                params.InputClasses,
-            }
-            { params.InputAttributes... }
-        />
+        if opts.Name != "" {
+            name={ opts.Name }
+        }
+        if opts.Placeholder != "" {
+            placeholder={ opts.Placeholder }
+        }
+        if opts.Value != "" {
+            value={ opts.Value }
+        }
+        class={
+            "form-control",
+            templ.KV("form-control-rounded", opts.Rounded),
+            templ.KV("form-control-flush", opts.Rounded),
+            templ.KV("form-control-"+string(opts.Size), opts.Size != ""),
+            opts.Classes,
+        }
+
+        { opts.Attributes... }
+    />
+}
+
+templ LabelElement(opts LabelElementOpts) {
+    <label
+        class={"form-label", opts.Classes}
+        if opts.For != "" {
+            for={ opts.For }
+        }
+        { opts.Attributes... }
+    >
+        { opts.Label }
+    </label>
+}
+
+templ FormInput(opts FormInputOpts) {
+    <div class={"mb-3", opts.WrapperClasses} { opts.WrapperAttributes... }>
+        if opts.LabelOptions.Label != "" {
+            @LabelElement(opts.LabelOptions)
+        }
+        @InputElement(opts.InputOptions)
     </div>
 }
 
+templ FormInputWithIcon(inputOpts FormInputOpts, addonOpts InputIconAddonOpts) {
+    <div class={"mb-3", inputOpts.WrapperClasses} { inputOpts.WrapperAttributes... }>
+        if inputOpts.LabelOptions.Label != "" {
+            @LabelElement(inputOpts.LabelOptions)
+        }
+        <div class="input-icon mb-3">
+            if addonOpts.StartAddonIcon != "" {
+                <span class="input-icon-addon">
+                    @tabler.Icon(addonOpts.StartAddonIcon)
+                </span>
+            }
+            
+            @InputElement(inputOpts.InputOptions)
+
+            if addonOpts.EndAddonIcon != "" {
+                <span class="input-icon-addon">
+                    @tabler.Icon(addonOpts.EndAddonIcon)
+                </span>
+            }
+        </div>
+    </div>
+}
+
+templ FormInputWithLoader(opts FormInputOpts, placeAtTheEnd bool) {
+    <div class={"mb-3", opts.WrapperClasses} { opts.WrapperAttributes... }>
+        if opts.LabelOptions.Label != "" {
+            @LabelElement(opts.LabelOptions)
+        }
+        <div class="input-icon mb-3">
+            if !placeAtTheEnd {
+                <span class="input-icon-addon">
+                    <div class="spinner-border spinner-border-sm text-secondary" role="status"></div>
+                </span>
+            }
+            
+            @InputElement(opts.InputOptions)
+
+            if placeAtTheEnd {
+                <span class="input-icon-addon">
+                    <div class="spinner-border spinner-border-sm text-secondary" role="status"></div>
+                </span>
+            }
+        </div>
+    </div>
+}
+
+templ FormInputGroup(opts FormInputOpts, groupOpts InputGroupOpts) {
+    <div class={"mb-3", opts.WrapperClasses} { opts.WrapperAttributes... }>
+        if opts.LabelOptions.Label != "" {
+            @LabelElement(opts.LabelOptions)
+        }
+        <div class="input-icon mb-3">
+            if groupOpts.StartText != "" {
+                <span class="input-group-text">
+                    { groupOpts.StartText }
+                </span>
+            }
+            
+            @InputElement(opts.InputOptions)
+
+            if groupOpts.EndText != "" {
+                <span class="input-group-text">
+                    { groupOpts.EndText }
+                </span>
+            }
+        </div>
+    </div>
+}
+
+// templ SeparatedInput(opts FormInputOpts)
