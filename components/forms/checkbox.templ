@@ -1,0 +1,57 @@
+package forms
+
+type CheckboxElementOpts struct {
+    Value string
+    Classes string
+    Checked bool
+    Attributes templ.Attributes
+}
+
+type FormCheckboxOpts struct {
+    CheckboxElementOpts CheckboxElementOpts
+    Label templ.Component
+    LabelClasses string
+    LabelAttributes templ.Attributes
+    Inline bool
+}
+
+type InlineCheckboxesOpts struct {
+    Checkboxes []FormCheckboxOpts
+    Title templ.Component
+
+    WrapperClasses string
+    WrapperAttributes templ.Attributes
+}
+
+templ CheckboxElement(opts CheckboxElementOpts) {
+	<input type="checkbox" class={opts.Classes} value={opts.Value} checked?={opts.Checked} {opts.Attributes...} />
+}
+
+templ Checkbox(opts FormCheckboxOpts) {
+    <label
+        class={
+            "form-check",
+            templ.KV("form-check-inline", opts.Inline),
+            opts.LabelClasses,
+        }
+        {opts.LabelAttributes...}
+    >
+        @CheckboxElement(opts.CheckboxElementOpts)
+        <span class="form-check-label">
+            @opts.Label
+        </span>
+    </label>
+}
+
+templ CheckboxesInline(opts InlineCheckboxesOpts) {
+    <div class={opts.WrapperClasses} {opts.WrapperAttributes...}>
+        if opts.Title != nil {
+            <div class="form-label">@opts.Title</div>
+        }
+        <div>
+            for _, checkboxOpts := range opts.Checkboxes {
+                @Checkbox(checkboxOpts)
+            }
+        </div>
+    </div>
+}

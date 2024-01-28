@@ -68,7 +68,7 @@ func TestFormInput(t *testing.T) {
 			Classes:    "name-label",
 		},
 	}
-	component := forms.FormInput(opts)
+	component := forms.Input(opts)
 	err := utility.CompareComponentAndHtml(component, expectedFormInput)
 	if err != nil {
 		t.Error(err)
@@ -94,7 +94,7 @@ func TestFormInputWithIcon(t *testing.T) {
 		},
 	}
 
-	component := forms.FormInputWithIcon(opts, forms.InputIconAddonOpts{
+	component := forms.InputWithIcon(opts, forms.InputIconAddonOpts{
 		StartAddonIcon: "currency-dollar",
 		EndAddonIcon:   "plus",
 	})
@@ -123,7 +123,7 @@ func TestFormInputWithLoader(t *testing.T) {
 		},
 	}
 
-	component := forms.FormInputWithLoader(opts, true)
+	component := forms.InputWithLoader(opts, true)
 	err := utility.CompareComponentAndHtml(component, expectedFormInputLoader)
 	if err != nil {
 		t.Error(err)
@@ -149,7 +149,7 @@ func TestFormInputGroup(t *testing.T) {
 		},
 	}
 
-	component := forms.FormInputGroup(opts, forms.InputGroupOpts{
+	component := forms.InputGroup(opts, forms.InputGroupOpts{
 		Start: tabler.Text("$"),
 		End:   tabler.Text("USD"),
 	})

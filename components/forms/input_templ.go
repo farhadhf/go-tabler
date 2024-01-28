@@ -250,7 +250,7 @@ func LabelElement(opts LabelElementOpts) templ.Component {
 	})
 }
 
-func FormInput(opts FormInputOpts) templ.Component {
+func Input(opts FormInputOpts) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -309,7 +309,7 @@ func FormInput(opts FormInputOpts) templ.Component {
 	})
 }
 
-func FormInputWithIcon(inputOpts FormInputOpts, addonOpts InputIconAddonOpts) templ.Component {
+func InputWithIcon(inputOpts FormInputOpts, addonOpts InputIconAddonOpts) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -400,7 +400,7 @@ func FormInputWithIcon(inputOpts FormInputOpts, addonOpts InputIconAddonOpts) te
 	})
 }
 
-func FormInputWithLoader(opts FormInputOpts, placeAtTheEnd bool) templ.Component {
+func InputWithLoader(opts FormInputOpts, placeAtTheEnd bool) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -475,7 +475,7 @@ func FormInputWithLoader(opts FormInputOpts, placeAtTheEnd bool) templ.Component
 	})
 }
 
-func FormInputGroup(opts FormInputOpts, groupOpts InputGroupOpts) templ.Component {
+func InputGroup(opts FormInputOpts, groupOpts InputGroupOpts) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
