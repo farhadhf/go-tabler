@@ -1,0 +1,18 @@
+package tabler
+
+
+type LinkOpts struct {
+    Href string
+    Text templ.Component
+    Attributes templ.Attributes
+}
+
+templ Text(text string) {
+    { text }
+}
+
+templ Link(opts LinkOpts) {
+    <a href={templ.SafeURL(opts.Href)} { opts.Attributes... }>
+        @opts.Text
+    </a>
+}
