@@ -10,7 +10,13 @@ import "context"
 import "io"
 import "bytes"
 
-func Body(attrs templ.Attributes, content templ.Component) templ.Component {
+type BodyOpts struct {
+	Attributes templ.Attributes
+	StartWith  templ.Component
+	EndWith    templ.Component
+}
+
+func Body(content templ.Component, opts BodyOpts) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -27,7 +33,7 @@ func Body(attrs templ.Attributes, content templ.Component) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, attrs)
+		templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, opts.Attributes)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -35,9 +41,21 @@ func Body(attrs templ.Attributes, content templ.Component) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
+		if opts.StartWith != nil {
+			templ_7745c5c3_Err = opts.StartWith.Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
 		templ_7745c5c3_Err = content.Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
+		}
+		if opts.EndWith != nil {
+			templ_7745c5c3_Err = opts.EndWith.Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</body>")
 		if templ_7745c5c3_Err != nil {

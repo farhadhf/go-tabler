@@ -1,7 +1,19 @@
 package tabler
 
-templ Body(attrs templ.Attributes, content templ.Component) {
-    <body { attrs... }>
+type BodyOpts struct {
+    Attributes templ.Attributes
+    StartWith templ.Component
+    EndWith templ.Component
+}
+
+templ Body(content templ.Component, opts BodyOpts) {
+    <body { opts.Attributes... }>
+        if opts.StartWith != nil {
+            @opts.StartWith
+        }
         @content
+        if opts.EndWith != nil {
+            @opts.EndWith
+        }
     </body>
 }
