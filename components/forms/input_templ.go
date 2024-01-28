@@ -226,7 +226,7 @@ func LabelElement(opts LabelElementOpts) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		if opts.Description != nil {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<span class=\"input-group-text\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<span class=\"form-label-description\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
