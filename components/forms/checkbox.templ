@@ -7,7 +7,7 @@ type CheckboxElementOpts struct {
     Attributes templ.Attributes
 }
 
-type FormCheckboxOpts struct {
+type CheckboxOpts struct {
     CheckboxElementOpts CheckboxElementOpts
     Label templ.Component
     LabelClasses string
@@ -16,7 +16,7 @@ type FormCheckboxOpts struct {
 }
 
 type InlineCheckboxesOpts struct {
-    Checkboxes []FormCheckboxOpts
+    Checkboxes []CheckboxOpts
     Title templ.Component
 
     WrapperClasses string
@@ -27,7 +27,7 @@ templ CheckboxElement(opts CheckboxElementOpts) {
 	<input type="checkbox" class={opts.Classes} value={opts.Value} checked?={opts.Checked} {opts.Attributes...} />
 }
 
-templ Checkbox(opts FormCheckboxOpts) {
+templ Checkbox(opts CheckboxOpts) {
     <label
         class={
             "form-check",

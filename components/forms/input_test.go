@@ -48,7 +48,7 @@ func TestLabelElement(t *testing.T) {
 var expectedFormInput string
 
 func TestFormInput(t *testing.T) {
-	opts := forms.FormInputOpts{
+	opts := forms.InputOpts{
 		WrapperAttributes: templ.Attributes{"id": "name-wrapper"},
 		WrapperClasses:    "wrapper name",
 		InputOptions: forms.InputElementOpts{
@@ -79,7 +79,7 @@ func TestFormInput(t *testing.T) {
 var expectedFormInputIcon string
 
 func TestFormInputWithIcon(t *testing.T) {
-	opts := forms.FormInputOpts{
+	opts := forms.InputOpts{
 		WrapperAttributes: templ.Attributes{"id": "amount-wrapper"},
 		WrapperClasses:    "wrapper amount",
 		InputOptions: forms.InputElementOpts{
@@ -108,7 +108,7 @@ func TestFormInputWithIcon(t *testing.T) {
 var expectedFormInputLoader string
 
 func TestFormInputWithLoader(t *testing.T) {
-	opts := forms.FormInputOpts{
+	opts := forms.InputOpts{
 		WrapperAttributes: templ.Attributes{"id": "amount-wrapper"},
 		WrapperClasses:    "wrapper amount",
 		InputOptions: forms.InputElementOpts{
@@ -134,7 +134,7 @@ func TestFormInputWithLoader(t *testing.T) {
 var expectedFormInputGroup string
 
 func TestFormInputGroup(t *testing.T) {
-	opts := forms.FormInputOpts{
+	opts := forms.InputOpts{
 		WrapperAttributes: templ.Attributes{"id": "amount-wrapper"},
 		WrapperClasses:    "wrapper amount",
 		InputOptions: forms.InputElementOpts{

@@ -34,7 +34,7 @@ type LabelElementOpts struct {
 	Classes     string
 }
 
-type FormInputOpts struct {
+type InputOpts struct {
 	WrapperAttributes templ.Attributes
 	WrapperClasses    string
 
@@ -250,7 +250,7 @@ func LabelElement(opts LabelElementOpts) templ.Component {
 	})
 }
 
-func Input(opts FormInputOpts) templ.Component {
+func Input(opts InputOpts) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -309,7 +309,7 @@ func Input(opts FormInputOpts) templ.Component {
 	})
 }
 
-func InputWithIcon(inputOpts FormInputOpts, addonOpts InputIconAddonOpts) templ.Component {
+func InputWithIcon(inputOpts InputOpts, addonOpts InputIconAddonOpts) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -400,7 +400,7 @@ func InputWithIcon(inputOpts FormInputOpts, addonOpts InputIconAddonOpts) templ.
 	})
 }
 
-func InputWithLoader(opts FormInputOpts, placeAtTheEnd bool) templ.Component {
+func InputWithLoader(opts InputOpts, placeAtTheEnd bool) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -475,7 +475,7 @@ func InputWithLoader(opts FormInputOpts, placeAtTheEnd bool) templ.Component {
 	})
 }
 
-func InputGroup(opts FormInputOpts, groupOpts InputGroupOpts) templ.Component {
+func InputGroup(opts InputOpts, groupOpts InputGroupOpts) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -582,4 +582,4 @@ func InputGroup(opts FormInputOpts, groupOpts InputGroupOpts) templ.Component {
 	})
 }
 
-// templ SeparatedInput(opts FormInputOpts)
+// templ SeparatedInput(opts InputOpts)
