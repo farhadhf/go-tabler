@@ -89,7 +89,7 @@ templ LabelElement(opts LabelElementOpts) {
 }
 
 templ FormInput(opts FormInputOpts) {
-    <div class={"mb-3", opts.WrapperClasses} { opts.WrapperAttributes... }>
+    <div class={opts.WrapperClasses} { opts.WrapperAttributes... }>
         if opts.LabelOptions.Label != nil {
             @LabelElement(opts.LabelOptions)
         }
@@ -98,7 +98,7 @@ templ FormInput(opts FormInputOpts) {
 }
 
 templ FormInputWithIcon(inputOpts FormInputOpts, addonOpts InputIconAddonOpts) {
-    <div class={"mb-3", inputOpts.WrapperClasses} { inputOpts.WrapperAttributes... }>
+    <div class={inputOpts.WrapperClasses} { inputOpts.WrapperAttributes... }>
         if inputOpts.LabelOptions.Label != nil {
             @LabelElement(inputOpts.LabelOptions)
         }
@@ -121,7 +121,7 @@ templ FormInputWithIcon(inputOpts FormInputOpts, addonOpts InputIconAddonOpts) {
 }
 
 templ FormInputWithLoader(opts FormInputOpts, placeAtTheEnd bool) {
-    <div class={"mb-3", opts.WrapperClasses} { opts.WrapperAttributes... }>
+    <div class={opts.WrapperClasses} { opts.WrapperAttributes... }>
         if opts.LabelOptions.Label != nil {
             @LabelElement(opts.LabelOptions)
         }
@@ -144,7 +144,7 @@ templ FormInputWithLoader(opts FormInputOpts, placeAtTheEnd bool) {
 }
 
 templ FormInputGroup(opts FormInputOpts, groupOpts InputGroupOpts) {
-    <div class={"mb-3", opts.WrapperClasses} { opts.WrapperAttributes... }>
+    <div class={opts.WrapperClasses} { opts.WrapperAttributes... }>
         if opts.LabelOptions.Label != nil {
             @LabelElement(opts.LabelOptions)
         }
