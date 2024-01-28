@@ -17,7 +17,8 @@ type InputElementOpts struct {
 }
 
 type LabelElementOpts struct {
-    Label string
+    Label templ.Component
+    Description templ.Component
     For string
     Attributes templ.Attributes
     Classes string
@@ -37,8 +38,9 @@ type InputIconAddonOpts struct {
 }
 
 type InputGroupOpts struct {
-    StartText string
-    EndText string
+    Start templ.Component
+    End templ.Component
+    Flat bool
 }
 
 templ InputElement(opts InputElementOpts) {
@@ -77,13 +79,18 @@ templ LabelElement(opts LabelElementOpts) {
         }
         { opts.Attributes... }
     >
-        { opts.Label }
+        @opts.Label
+        if opts.Description != nil {
+            <span class="input-group-text">
+                @opts.Description
+            </span>
+        }
     </label>
 }
 
 templ FormInput(opts FormInputOpts) {
     <div class={"mb-3", opts.WrapperClasses} { opts.WrapperAttributes... }>
-        if opts.LabelOptions.Label != "" {
+        if opts.LabelOptions.Label != nil {
             @LabelElement(opts.LabelOptions)
         }
         @InputElement(opts.InputOptions)
@@ -92,7 +99,7 @@ templ FormInput(opts FormInputOpts) {
 
 templ FormInputWithIcon(inputOpts FormInputOpts, addonOpts InputIconAddonOpts) {
     <div class={"mb-3", inputOpts.WrapperClasses} { inputOpts.WrapperAttributes... }>
-        if inputOpts.LabelOptions.Label != "" {
+        if inputOpts.LabelOptions.Label != nil {
             @LabelElement(inputOpts.LabelOptions)
         }
         <div class="input-icon mb-3">
@@ -115,7 +122,7 @@ templ FormInputWithIcon(inputOpts FormInputOpts, addonOpts InputIconAddonOpts) {
 
 templ FormInputWithLoader(opts FormInputOpts, placeAtTheEnd bool) {
     <div class={"mb-3", opts.WrapperClasses} { opts.WrapperAttributes... }>
-        if opts.LabelOptions.Label != "" {
+        if opts.LabelOptions.Label != nil {
             @LabelElement(opts.LabelOptions)
         }
         <div class="input-icon mb-3">
@@ -138,21 +145,24 @@ templ FormInputWithLoader(opts FormInputOpts, placeAtTheEnd bool) {
 
 templ FormInputGroup(opts FormInputOpts, groupOpts InputGroupOpts) {
     <div class={"mb-3", opts.WrapperClasses} { opts.WrapperAttributes... }>
-        if opts.LabelOptions.Label != "" {
+        if opts.LabelOptions.Label != nil {
             @LabelElement(opts.LabelOptions)
         }
-        <div class="input-icon mb-3">
-            if groupOpts.StartText != "" {
+        <div class={
+            "input-group",
+            templ.KV("input-group-flat", groupOpts.Flat),
+        }>
+            if groupOpts.Start != nil {
                 <span class="input-group-text">
-                    { groupOpts.StartText }
+                    @groupOpts.Start
                 </span>
             }
             
             @InputElement(opts.InputOptions)
 
-            if groupOpts.EndText != "" {
+            if groupOpts.End != nil {
                 <span class="input-group-text">
-                    { groupOpts.EndText }
+                    @groupOpts.End
                 </span>
             }
         </div>

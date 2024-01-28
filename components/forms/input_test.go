@@ -33,7 +33,7 @@ var expectedLabel string
 
 func TestLabelElement(t *testing.T) {
 	opts := forms.LabelElementOpts{
-		Label:      "Email",
+		Label:      tabler.Text("Email"),
 		Attributes: templ.Attributes{"for": "email"},
 		Classes:    "mb-2",
 	}
@@ -62,7 +62,7 @@ func TestFormInput(t *testing.T) {
 			Classes:     "name-input",
 		},
 		LabelOptions: forms.LabelElementOpts{
-			Label:      "Name",
+			Label:      tabler.Text("Name"),
 			For:        "name",
 			Attributes: templ.Attributes{"id": "name-label"},
 			Classes:    "name-label",
@@ -150,8 +150,8 @@ func TestFormInputGroup(t *testing.T) {
 	}
 
 	component := forms.FormInputGroup(opts, forms.InputGroupOpts{
-		StartText: "$",
-		EndText:   "USD",
+		Start: tabler.Text("$"),
+		End:   tabler.Text("USD"),
 	})
 	err := utility.CompareComponentAndHtml(component, expectedFormInputGroup)
 	if err != nil {
