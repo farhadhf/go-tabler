@@ -263,7 +263,7 @@ func FormInput(opts FormInputOpts) templ.Component {
 			templ_7745c5c3_Var5 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		var templ_7745c5c3_Var6 = []any{"mb-3", opts.WrapperClasses}
+		var templ_7745c5c3_Var6 = []any{opts.WrapperClasses}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var6...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -322,7 +322,7 @@ func FormInputWithIcon(inputOpts FormInputOpts, addonOpts InputIconAddonOpts) te
 			templ_7745c5c3_Var7 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		var templ_7745c5c3_Var8 = []any{"mb-3", inputOpts.WrapperClasses}
+		var templ_7745c5c3_Var8 = []any{inputOpts.WrapperClasses}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var8...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -413,7 +413,7 @@ func FormInputWithLoader(opts FormInputOpts, placeAtTheEnd bool) templ.Component
 			templ_7745c5c3_Var9 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		var templ_7745c5c3_Var10 = []any{"mb-3", opts.WrapperClasses}
+		var templ_7745c5c3_Var10 = []any{opts.WrapperClasses}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var10...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -488,7 +488,7 @@ func FormInputGroup(opts FormInputOpts, groupOpts InputGroupOpts) templ.Componen
 			templ_7745c5c3_Var11 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		var templ_7745c5c3_Var12 = []any{"mb-3", opts.WrapperClasses}
+		var templ_7745c5c3_Var12 = []any{opts.WrapperClasses}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var12...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
