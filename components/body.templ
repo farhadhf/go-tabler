@@ -2,18 +2,25 @@ package tabler
 
 type BodyOpts struct {
     Attributes templ.Attributes
-    StartWith templ.Component
-    EndWith templ.Component
+    
+    StartTags []ScriptTag
+    EndTags []ScriptTag
 }
 
 templ Body(content templ.Component, opts BodyOpts) {
     <body { opts.Attributes... }>
-        if opts.StartWith != nil {
-            @opts.StartWith
+        if len(opts.StartTags) > 0 {
+            for _, script := range opts.StartTags {
+                <script src={ script.Src } { script.Attributes... }></script>
+            }
         }
+        
         @content
-        if opts.EndWith != nil {
-            @opts.EndWith
+        
+        if len(opts.EndTags) > 0 {
+            for _, script := range opts.EndTags {
+                <script src={ script.Src } { script.Attributes... }></script>
+            }
         }
     </body>
 }
