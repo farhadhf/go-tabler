@@ -30,17 +30,36 @@ type InputOpts struct {
 
     InputOptions InputElementOpts
     LabelOptions LabelElementOpts
+    Hint templ.Component
 }
 
 type InputIconAddonOpts struct {
     StartAddonIcon string
     EndAddonIcon string
+    Hint templ.Component
 }
 
 type InputGroupOpts struct {
     Start templ.Component
     End templ.Component
     Flat bool
+    Hint templ.Component
+}
+
+type TextAreaElementOpts struct {
+    Name string
+    Placeholder string
+    Classes string
+    Attributes templ.Attributes
+}
+
+type TextAreaOpts struct {
+    WrapperAttributes templ.Attributes
+    WrapperClasses string
+
+    TextAreaOptions TextAreaElementOpts
+    LabelOptions LabelElementOpts
+    Hint templ.Component
 }
 
 templ InputElement(opts InputElementOpts) {
@@ -94,6 +113,11 @@ templ Input(opts InputOpts) {
             @LabelElement(opts.LabelOptions)
         }
         @InputElement(opts.InputOptions)
+        if opts.Hint != nil {
+            <p class="form-hint">
+                @opts.Hint
+            </p>
+        }
     </div>
 }
 
@@ -117,6 +141,11 @@ templ InputWithIcon(inputOpts InputOpts, addonOpts InputIconAddonOpts) {
                 </span>
             }
         </div>
+        if addonOpts.Hint != nil {
+            <p class="form-hint">
+                @addonOpts.Hint
+            </p>
+        }
     </div>
 }
 
@@ -166,6 +195,38 @@ templ InputGroup(opts InputOpts, groupOpts InputGroupOpts) {
                 </span>
             }
         </div>
+        if groupOpts.Hint != nil {
+            <p class="form-hint">
+                @groupOpts.Hint
+            </p>
+        }
+    </div>
+}
+
+templ TextAreaElement(opts TextAreaElementOpts) {
+    <textarea 
+        class={"form-control", opts.Classes} 
+        if opts.Name != "" {
+            name={opts.Name}
+        }
+        if opts.Placeholder != "" {
+            placeholder={opts.Placeholder}
+        }
+        {opts.Attributes...}
+    ></textarea>
+}
+
+templ TextArea(opts TextAreaOpts) {
+    <div class={opts.WrapperClasses} { opts.WrapperAttributes... }>
+        if opts.LabelOptions.Label != nil {
+            @LabelElement(opts.LabelOptions)
+        }
+        @TextAreaElement(opts.TextAreaOptions)
+        if opts.Hint != nil {
+            <p class="form-hint">
+                @opts.Hint
+            </p>
+        }
     </div>
 }
 
