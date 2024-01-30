@@ -49,6 +49,7 @@ type InputGroupOpts struct {
 type TextAreaElementOpts struct {
     Name string
     Placeholder string
+    Value string
     Classes string
     Attributes templ.Attributes
 }
@@ -213,7 +214,9 @@ templ TextAreaElement(opts TextAreaElementOpts) {
             placeholder={opts.Placeholder}
         }
         {opts.Attributes...}
-    ></textarea>
+    >
+        {opts.Value}
+    </textarea>
 }
 
 templ TextArea(opts TextAreaOpts) {
