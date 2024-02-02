@@ -1,0 +1,67 @@
+package forms
+
+import (
+    tabler "github.com/farhadhf/go-tabler/components"
+)
+
+type OptionElementOps struct {
+    Value string
+    Title string
+    Selected bool
+    Attributes templ.Attributes
+}
+type SelectElementOpts struct {
+    Name string
+    Options []OptionElementOps
+
+    Multiple bool
+    Classes string
+    Rounded bool
+    Flush bool
+    Size tabler.SizeOption
+    Attributes templ.Attributes
+}
+
+type SelectOpts struct {
+    WrapperAttributes templ.Attributes
+    WrapperClasses string
+
+    LabelOptions LabelElementOpts
+    SelectOptions SelectElementOpts
+    Hint templ.Component
+}
+
+templ SelectElement(opts SelectElementOpts) {
+    <select
+        multiple?={opts.Multiple}
+        if opts.Name != "" {
+            name={opts.Name}
+        }
+        class={
+            "form-select",
+            templ.KV("form-control-rounded", opts.Rounded),
+            templ.KV("form-control-flush", opts.Rounded),
+            templ.KV("form-control-"+string(opts.Size), opts.Size != ""),
+            opts.Classes,
+        }
+        { opts.Attributes... }
+    >
+        for _, option := range opts.Options {
+            <option value={option.Value} selected?={option.Selected} {option.Attributes...}>{option.Title}</option>
+        }
+    </select>
+}
+
+templ Select(opts SelectOpts) {
+    <div class={opts.WrapperClasses} { opts.WrapperAttributes... }>
+        if opts.LabelOptions.Label != nil {
+            @LabelElement(opts.LabelOptions)
+        }
+        @SelectElement(opts.SelectOptions)
+        if opts.Hint != nil {
+            <p class="form-hint">
+                @opts.Hint
+            </p>
+        }
+    </div>
+}
