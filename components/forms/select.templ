@@ -4,7 +4,7 @@ import (
     tabler "github.com/farhadhf/go-tabler/components"
 )
 
-type OptionElementOps struct {
+type OptionElementOpts struct {
     Value string
     Title string
     Selected bool
@@ -12,7 +12,7 @@ type OptionElementOps struct {
 }
 type SelectElementOpts struct {
     Name string
-    Options []OptionElementOps
+    Options []OptionElementOpts
 
     Multiple bool
     Classes string
@@ -29,6 +29,17 @@ type SelectOpts struct {
     LabelOptions LabelElementOpts
     SelectOptions SelectElementOpts
     Hint templ.Component
+}
+
+func StringMapToOptionElementOpts(m map[string]string) []OptionElementOpts {
+    var opts []OptionElementOpts
+    for k, v := range m {
+        opts = append(opts, OptionElementOpts{
+            Title: v,
+            Value: k,
+        })
+    }
+    return opts
 }
 
 templ SelectElement(opts SelectElementOpts) {

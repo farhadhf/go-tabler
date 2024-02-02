@@ -14,7 +14,7 @@ import (
 	tabler "github.com/farhadhf/go-tabler/components"
 )
 
-type OptionElementOps struct {
+type OptionElementOpts struct {
 	Value      string
 	Title      string
 	Selected   bool
@@ -22,7 +22,7 @@ type OptionElementOps struct {
 }
 type SelectElementOpts struct {
 	Name    string
-	Options []OptionElementOps
+	Options []OptionElementOpts
 
 	Multiple   bool
 	Classes    string
@@ -39,6 +39,17 @@ type SelectOpts struct {
 	LabelOptions  LabelElementOpts
 	SelectOptions SelectElementOpts
 	Hint          templ.Component
+}
+
+func StringMapToOptionElementOpts(m map[string]string) []OptionElementOpts {
+	var opts []OptionElementOpts
+	for k, v := range m {
+		opts = append(opts, OptionElementOpts{
+			Title: v,
+			Value: k,
+		})
+	}
+	return opts
 }
 
 func SelectElement(opts SelectElementOpts) templ.Component {
@@ -139,7 +150,7 @@ func SelectElement(opts SelectElementOpts) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(option.Title)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/forms/select.templ`, Line: 49, Col: 105}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/forms/select.templ`, Line: 60, Col: 105}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
