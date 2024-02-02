@@ -12,6 +12,7 @@ import "bytes"
 
 import (
 	tabler "github.com/farhadhf/go-tabler/components"
+	"sort"
 )
 
 type OptionElementOpts struct {
@@ -23,6 +24,7 @@ type OptionElementOpts struct {
 type SelectElementOpts struct {
 	Name    string
 	Options []OptionElementOpts
+	Value   string
 
 	Multiple   bool
 	Classes    string
@@ -41,7 +43,8 @@ type SelectOpts struct {
 	Hint          templ.Component
 }
 
-func StringMapToOptionElementOpts(m map[string]string) []OptionElementOpts {
+// StringMapToOptionElementOpts takes a map[string]string and returns an optionally sorted slice of OptionElementOpts.
+func StringMapToOptionElementOpts(m map[string]string, sortItems bool) []OptionElementOpts {
 	var opts []OptionElementOpts
 	for k, v := range m {
 		opts = append(opts, OptionElementOpts{
@@ -49,6 +52,13 @@ func StringMapToOptionElementOpts(m map[string]string) []OptionElementOpts {
 			Value: k,
 		})
 	}
+
+	if sortItems {
+		sort.SliceStable(opts, func(i, j int) bool {
+			return opts[i].Title < opts[j].Title
+		})
+	}
+
 	return opts
 }
 
@@ -133,7 +143,7 @@ func SelectElement(opts SelectElementOpts) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			if option.Selected {
+			if option.Selected || opts.Value == option.Value {
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" selected")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
@@ -150,7 +160,7 @@ func SelectElement(opts SelectElementOpts) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(option.Title)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/forms/select.templ`, Line: 60, Col: 105}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/forms/select.templ`, Line: 78, Col: 30}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {

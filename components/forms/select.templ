@@ -1,6 +1,7 @@
 package forms
 
 import (
+    "sort"
     tabler "github.com/farhadhf/go-tabler/components"
 )
 
@@ -32,7 +33,8 @@ type SelectOpts struct {
     Hint templ.Component
 }
 
-func StringMapToOptionElementOpts(m map[string]string) []OptionElementOpts {
+// StringMapToOptionElementOpts takes a map[string]string and returns an optionally sorted slice of OptionElementOpts.
+func StringMapToOptionElementOpts(m map[string]string, sortItems bool) []OptionElementOpts {
     var opts []OptionElementOpts
     for k, v := range m {
         opts = append(opts, OptionElementOpts{
@@ -40,6 +42,13 @@ func StringMapToOptionElementOpts(m map[string]string) []OptionElementOpts {
             Value: k,
         })
     }
+
+    if sortItems {
+        sort.SliceStable(opts, func(i, j int) bool {
+            return opts[i].Title < opts[j].Title
+        })
+    }
+
     return opts
 }
 
@@ -64,7 +73,7 @@ templ SelectElement(opts SelectElementOpts) {
                 if option.Selected || opts.Value == option.Value {
                     selected
                 }
-                
+
                 {option.Attributes...}
             >
                 { option.Title }
