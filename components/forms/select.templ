@@ -13,7 +13,8 @@ type OptionElementOpts struct {
 type SelectElementOpts struct {
     Name string
     Options []OptionElementOpts
-
+    Value string
+    
     Multiple bool
     Classes string
     Rounded bool
@@ -58,7 +59,16 @@ templ SelectElement(opts SelectElementOpts) {
         { opts.Attributes... }
     >
         for _, option := range opts.Options {
-            <option value={option.Value} selected?={option.Selected} {option.Attributes...}>{option.Title}</option>
+            <option 
+                value={option.Value}
+                if option.Selected || opts.Value == option.Value {
+                    selected
+                }
+                
+                {option.Attributes...}
+            >
+                { option.Title }
+            </option>
         }
     </select>
 }
