@@ -79,7 +79,7 @@ func SelectElement(opts SelectElementOpts) templ.Component {
 			"form-select",
 			templ.KV("form-control-rounded", opts.Rounded),
 			templ.KV("form-control-flush", opts.Rounded),
-			templ.KV("form-control-"+string(opts.Size), opts.Size != ""),
+			templ.KV("form-select-"+string(opts.Size), opts.Size != ""),
 			opts.Classes,
 		}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var2...)

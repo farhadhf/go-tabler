@@ -62,7 +62,7 @@ templ SelectElement(opts SelectElementOpts) {
             "form-select",
             templ.KV("form-control-rounded", opts.Rounded),
             templ.KV("form-control-flush", opts.Rounded),
-            templ.KV("form-control-"+string(opts.Size), opts.Size != ""),
+            templ.KV("form-select-"+string(opts.Size), opts.Size != ""),
             opts.Classes,
         }
         { opts.Attributes... }
