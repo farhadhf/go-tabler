@@ -33,6 +33,13 @@ type SelectOpts struct {
     Hint templ.Component
 }
 
+func setOptionElementSelected(opts OptionElementOpts, value string) OptionElementOpts {
+    if opts.Value == value {
+        opts.Selected = true
+    }
+    return opts
+}
+
 // StringMapToOptionElementOpts takes a map[string]string and returns an optionally sorted slice of OptionElementOpts.
 func StringMapToOptionElementOpts(m map[string]string, sortItems bool) []OptionElementOpts {
     var opts []OptionElementOpts
@@ -52,6 +59,18 @@ func StringMapToOptionElementOpts(m map[string]string, sortItems bool) []OptionE
     return opts
 }
 
+templ OptionElement(opts OptionElementOpts) {
+    <option 
+        value={opts.Value}
+        if opts.Selected {
+            selected
+        }
+        {opts.Attributes...}
+    >
+        { opts.Title }
+    </option>
+}
+
 templ SelectElement(opts SelectElementOpts) {
     <select
         multiple?={opts.Multiple}
@@ -67,17 +86,8 @@ templ SelectElement(opts SelectElementOpts) {
         }
         { opts.Attributes... }
     >
-        for _, option := range opts.Options {
-            <option 
-                value={option.Value}
-                if option.Selected || opts.Value == option.Value {
-                    selected
-                }
-
-                {option.Attributes...}
-            >
-                { option.Title }
-            </option>
+        for _, optionOpts := range opts.Options {
+            @OptionElement(setOptionElementSelected(optionOpts, opts.Value))
         }
     </select>
 }
