@@ -3,6 +3,7 @@ package forms
 import (
     "sort"
     tabler "github.com/farhadhf/go-tabler/components"
+	"slices"
 )
 
 type OptionElementOpts struct {
@@ -15,7 +16,7 @@ type SelectElementOpts struct {
     Name string
     Options []OptionElementOpts
     Value string
-    
+
     Multiple bool
     Classes string
     Rounded bool
@@ -59,8 +60,25 @@ func StringMapToOptionElementOpts(m map[string]string, sortItems bool) []OptionE
     return opts
 }
 
+// StringSliceToOptionElementOpts takes a []string slice and returns an optionally sorted slice of
+// OptionElementOpts with both titles and values of the option elements set to the value of the string slice elements.
+func StringSliceToOptionElementOpts(s []string, sortItems bool) []OptionElementOpts {
+    var opts []OptionElementOpts
+    if sortItems {
+        slices.Sort(s)
+    }
+    for _, v := range s {
+        opts = append(opts, OptionElementOpts{
+            Title: v,
+            Value: v,
+        })
+    }
+
+    return opts
+}
+
 templ OptionElement(opts OptionElementOpts) {
-    <option 
+    <option
         value={opts.Value}
         if opts.Selected {
             selected

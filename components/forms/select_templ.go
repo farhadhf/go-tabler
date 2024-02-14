@@ -12,6 +12,7 @@ import "bytes"
 
 import (
 	tabler "github.com/farhadhf/go-tabler/components"
+	"slices"
 	"sort"
 )
 
@@ -69,6 +70,23 @@ func StringMapToOptionElementOpts(m map[string]string, sortItems bool) []OptionE
 	return opts
 }
 
+// StringSliceToOptionElementOpts takes a []string slice and returns an optionally sorted slice of
+// OptionElementOpts with both titles and values of the option elements set to the value of the string slice elements.
+func StringSliceToOptionElementOpts(s []string, sortItems bool) []OptionElementOpts {
+	var opts []OptionElementOpts
+	if sortItems {
+		slices.Sort(s)
+	}
+	for _, v := range s {
+		opts = append(opts, OptionElementOpts{
+			Title: v,
+			Value: v,
+		})
+	}
+
+	return opts
+}
+
 func OptionElement(opts OptionElementOpts) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
@@ -111,7 +129,7 @@ func OptionElement(opts OptionElementOpts) templ.Component {
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(opts.Title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/forms/select.templ`, Line: 69, Col: 20}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/forms/select.templ`, Line: 87, Col: 20}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
