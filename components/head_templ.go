@@ -26,7 +26,31 @@ type MetaTag struct {
 	Content string
 }
 
-func Head(title string, links []LinkTag, scripts []ScriptTag, metaTags []MetaTag, includeTablerCDN bool) templ.Component {
+func (s ScriptTag) Render(ctx context.Context, w io.Writer) error {
+	if _, err := io.WriteString(w, "<script "); err != nil {
+		return err
+	}
+	if s.Src != "" {
+		if _, err := io.WriteString(w, "src=\""+s.Src+"\" "); err != nil {
+			return err
+		}
+	}
+	if err := templ.RenderAttributes(ctx, w, s.Attributes); err != nil {
+		return err
+	}
+	if _, err := io.WriteString(w, ">"); err != nil {
+		return err
+	}
+	if _, err := io.WriteString(w, s.Content); err != nil {
+		return err
+	}
+	if _, err := io.WriteString(w, "</script>"); err != nil {
+		return err
+	}
+	return nil
+}
+
+func Head(title string, links []LinkTag, scripts []ScriptTag, metaTags []MetaTag, customScripts templ.Component, includeTablerCDN bool) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -46,7 +70,7 @@ func Head(title string, links []LinkTag, scripts []ScriptTag, metaTags []MetaTag
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/head.templ`, Line: 22, Col: 21}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/head.templ`, Line: 46, Col: 21}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
@@ -107,40 +131,9 @@ func Head(title string, links []LinkTag, scripts []ScriptTag, metaTags []MetaTag
 			}
 		}
 		for _, script := range scripts {
-			if script.Src != "" {
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<script src=\"")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(script.Src))
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, script.Attributes)
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("></script>")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-			} else {
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<script")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, script.Attributes)
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(">{ script.Content }</script>")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
+			templ_7745c5c3_Err = script.Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
 			}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</head>")
