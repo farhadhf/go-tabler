@@ -40,7 +40,7 @@ func (s ScriptTag) Render(ctx context.Context, w io.Writer) error {
     return nil
 }
 
-templ Head(title string, links []LinkTag, scripts []ScriptTag, metaTags []MetaTag, customScripts templ.Component, includeTablerCDN bool) {
+templ Head(title string, links []LinkTag, scripts []ScriptTag, metaTags []MetaTag, includeTablerCDN bool) {
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

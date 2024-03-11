@@ -50,7 +50,7 @@ func (s ScriptTag) Render(ctx context.Context, w io.Writer) error {
 	return nil
 }
 
-func Head(title string, links []LinkTag, scripts []ScriptTag, metaTags []MetaTag, customScripts templ.Component, includeTablerCDN bool) templ.Component {
+func Head(title string, links []LinkTag, scripts []ScriptTag, metaTags []MetaTag, includeTablerCDN bool) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
