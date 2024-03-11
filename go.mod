@@ -3,9 +3,9 @@ module github.com/farhadhf/go-tabler
 go 1.21.6
 
 require (
-	github.com/a-h/templ v0.2.543
+	github.com/a-h/templ v0.2.598
 	github.com/tdewolff/minify v2.3.6+incompatible
-	golang.org/x/text v0.13.0
+	golang.org/x/text v0.14.0
 )
 
 require (
@@ -13,5 +13,5 @@ require (
 	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/tdewolff/parse v2.3.4+incompatible // indirect
 	github.com/tdewolff/test v1.0.10 // indirect
-	golang.org/x/net v0.17.0 // indirect
+	golang.org/x/net v0.19.0 // indirect
 )
