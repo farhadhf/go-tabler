@@ -16,7 +16,31 @@ type MetaTag struct {
     Content string
 }
 
-templ Head(title string, links []LinkTag, scripts []ScriptTag, metaTags []MetaTag, includeTablerCDN bool) {
+func (s ScriptTag) Render(ctx context.Context, w io.Writer) error {
+    if _, err := io.WriteString(w, "<script "); err != nil {
+        return err
+    }
+    if s.Src != "" {
+        if _, err := io.WriteString(w, "src=\"" + s.Src + "\" "); err != nil {
+            return err
+        }
+    }
+    if err := templ.RenderAttributes(ctx, w, s.Attributes); err != nil {
+        return err
+    }
+    if _, err := io.WriteString(w, ">"); err != nil {
+        return err
+    }
+    if _, err := io.WriteString(w, s.Content); err != nil {
+        return err
+    }
+    if _, err := io.WriteString(w, "</script>"); err != nil {
+        return err
+    }
+    return nil
+}
+
+templ Head(title string, links []LinkTag, scripts []ScriptTag, metaTags []MetaTag, customScripts templ.Component, includeTablerCDN bool) {
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -32,11 +56,7 @@ templ Head(title string, links []LinkTag, scripts []ScriptTag, metaTags []MetaTa
             <link { link.Attributes... } href={ link.Href } />
         }
         for _, script := range scripts {
-            if script.Src != "" {
-                <script src={ script.Src } { script.Attributes... }></script>
-            } else {
-                <script { script.Attributes... }>{ script.Content }</script>
-            }
+            @script
         }
     </head>
 }
