@@ -42,13 +42,17 @@ func setOptionElementSelected(opts OptionElementOpts, value string) OptionElemen
 }
 
 // StringMapToOptionElementOpts takes a map[string]string and returns an optionally sorted slice of OptionElementOpts.
-func StringMapToOptionElementOpts(m map[string]string, sortItems bool) []OptionElementOpts {
+func StringMapToOptionElementOpts(m map[string]string, sortItems bool, selected string) []OptionElementOpts {
     var opts []OptionElementOpts
     for k, v := range m {
-        opts = append(opts, OptionElementOpts{
+        opt := OptionElementOpts{
             Title: v,
             Value: k,
-        })
+        }
+        if k == selected {
+            opt.Selected = true
+        }
+        opts = append(opts, opt)
     }
 
     if sortItems {
@@ -62,16 +66,20 @@ func StringMapToOptionElementOpts(m map[string]string, sortItems bool) []OptionE
 
 // StringSliceToOptionElementOpts takes a []string slice and returns an optionally sorted slice of
 // OptionElementOpts with both titles and values of the option elements set to the value of the string slice elements.
-func StringSliceToOptionElementOpts(s []string, sortItems bool) []OptionElementOpts {
+func StringSliceToOptionElementOpts(s []string, sortItems bool, selected string) []OptionElementOpts {
     var opts []OptionElementOpts
     if sortItems {
         slices.Sort(s)
     }
     for _, v := range s {
-        opts = append(opts, OptionElementOpts{
+        opt := OptionElementOpts{
             Title: v,
             Value: v,
-        })
+        }
+        if v == selected {
+            opt.Selected = true
+        }
+        opts = append(opts, opt)
     }
 
     return opts
