@@ -14,6 +14,7 @@ type CheckboxOpts struct {
     LabelClasses string
     LabelAttributes templ.Attributes
     Inline bool
+    Hint templ.Component
 }
 
 type InlineCheckboxesOpts struct {
@@ -41,6 +42,11 @@ templ Checkbox(opts CheckboxOpts) {
         <span class="form-check-label">
             @opts.Label
         </span>
+        if opts.Hint != nil {
+            <p class="form-hint">
+                @opts.Hint
+            </p>
+        }
     </label>
 }
 
