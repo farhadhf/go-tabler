@@ -22,9 +22,7 @@ templ alertLayout(color string, dismissible bool, important bool, body templ.Com
             templ.KV("alert-dismissible", dismissible),
         }
     >
-        <div class="d-flex">
-            @body
-        </div>
+        @body
         if dismissible {
             <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
         }
@@ -37,13 +35,13 @@ templ alertBody(title, description string) {
             <h4 class="alert-title">{title}</h4>
         }
         if description != "" {
-            <div class="text-secondary">{description}</div>
+            <div>{description}</div>
         }
     </div>
 }
 
 templ alertBodyWithIcon(title, description, icon string) {
-    <div>
+    <div class="alert-icon">
         @tabler.Icon(icon)
     </div>
     <div>
@@ -51,7 +49,7 @@ templ alertBodyWithIcon(title, description, icon string) {
             <h4 class="alert-title">{title}</h4>
         }
         if description != "" {
-            <div class="text-secondary">{description}</div>
+            <div>{description}</div>
         }
     </div>
 }
